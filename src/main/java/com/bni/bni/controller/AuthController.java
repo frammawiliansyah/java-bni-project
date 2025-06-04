@@ -15,10 +15,10 @@ import java.util.HashMap;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Value("${CONFIG_MAP_VALUE}")
+    @Value("${CONFIG_MAP_VALUE:default-config}")
     private String configMapValue;
 
-    @Value("${SECRET_VALUE}")
+    @Value("${SECRET_VALUE:default-secret}")
     private String secretValue;
 
     @Autowired
