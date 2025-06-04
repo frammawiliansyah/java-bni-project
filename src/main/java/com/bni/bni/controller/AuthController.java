@@ -84,8 +84,6 @@ public class AuthController {
             response.put("role", claims.get("role"));
             response.put("issuedAt", claims.getIssuedAt());
             response.put("expiration", claims.getExpiration());
-            response.put("config_map", configMapValue);
-            response.put("secret", secretValue);
 
             return ResponseEntity.ok(response);
 
