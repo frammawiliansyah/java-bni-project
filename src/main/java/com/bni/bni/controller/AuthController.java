@@ -14,6 +14,12 @@ import java.util.HashMap;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    @Value("${CONFIG_MAP_VALUE}")
+    private String configMapValue;
+
+    @Value("${SECRET_VALUE}")
+    private String secretValue;
+
     @Autowired
     private AuthService authService;
 
@@ -77,6 +83,8 @@ public class AuthController {
             response.put("role", claims.get("role"));
             response.put("issuedAt", claims.getIssuedAt());
             response.put("expiration", claims.getExpiration());
+            response.put("config_map", configMapValue);
+            response.put("secret", secretValue);
 
             return ResponseEntity.ok(response);
 
