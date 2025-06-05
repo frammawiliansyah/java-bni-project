@@ -1,4 +1,4 @@
-# Java BNI Project and Read Hat OpenShift
+# Java BNI Project and OpenShift
 
 This is a simple Spring Boot API that provides user **registration** and **login** functionality using **Oracle SQL** as the database.
 
