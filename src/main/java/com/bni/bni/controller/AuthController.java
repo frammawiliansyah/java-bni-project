@@ -36,6 +36,7 @@ public class AuthController {
         Map<String, Object> response = new HashMap<>();
         response.put("status", 200);
         response.put("message", message);
+        response.put("message", "Register Berhasil");
 
         return ResponseEntity.ok(response);
     }
@@ -50,10 +51,11 @@ public class AuthController {
         if (token != null) {
             response.put("status", 200);
             response.put("token", token);
+            response.put("message", "Login Berhasil");
             return ResponseEntity.ok(response);
         } else {
             response.put("status", 401);
-            response.put("message", "Invalid credentials");
+            response.put("message", "Invalid Credentials");
             return ResponseEntity.status(401).body(response);
         }
     }
@@ -73,7 +75,7 @@ public class AuthController {
 
             if (!jwtUtil.validateToken(token)) {
                 response.put("status", 401);
-                response.put("message", "Token tidak valid atau expired");
+                response.put("message", "Token Tidak Valid atau Expired");
                 return ResponseEntity.status(401).body(response);
             }
 
@@ -89,7 +91,7 @@ public class AuthController {
 
         } catch (Exception e) {
             response.put("status", 401);
-            response.put("message", "Token tidak valid");
+            response.put("message", "Token Tidak Valid");
             return ResponseEntity.status(401).body(response);
         }
     }
