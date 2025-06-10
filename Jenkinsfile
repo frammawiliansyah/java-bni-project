@@ -1,11 +1,6 @@
 pipeline {
   agent any
 
-  tools {
-    jdk 'JDK 21'
-    maven 'Maven 3.9'
-  }
-
   environment {
     PROJECT_NAME = "frammakbar-dev"
     IMAGE_NAME = "java-bni-project-git"
@@ -13,9 +8,16 @@ pipeline {
   }
 
   stages {
-    stage('Build') {
+    stage('Check Java & Git') {
       steps {
-        sh 'mvn clean install -DskipTests'
+        sh 'java -version || true'
+        sh 'git --version || true'
+      }
+    }
+
+    stage('Build with Maven Wrapper') {
+      steps {
+        sh './mvnw clean install -DskipTests'
       }
     }
 
@@ -38,6 +40,15 @@ pipeline {
       steps {
         sh 'oc rollout restart deployment/${IMAGE_NAME} -n ${PROJECT_NAME}'
       }
+    }
+  }
+
+  post {
+    success {
+      echo '✅ Pipeline finished successfully.'
+    }
+    failure {
+      echo '❌ Pipeline failed.'
     }
   }
 }
