@@ -1,4 +1,4 @@
-# Java BNI Project and OpenShift
+# Java BNI Project and OpenShift x Jenkins
 
 This is a simple Spring Boot API that provides user **registration** and **login** functionality using **Oracle SQL** as the database.
 
