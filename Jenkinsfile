@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean install'
+        sh './mvnw clean install -DskipTests'
       }
     }
     stage('Docker Build & Push') {
@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Deploy to OpenShift') {
       steps {
-        sh 'oc rollout restart deployment/my-app'
+        sh 'oc rollout restart deployment/java-bni-project-git'
       }
     }
   }
