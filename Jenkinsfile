@@ -5,6 +5,7 @@ pipeline {
     PROJECT_NAME = "frammakbar-dev"
     IMAGE_NAME = "java-bni-project-git"
     REGISTRY = "image-registry.openshift-image-registry.svc:5000"
+    OPENSHIFT_TOKEN = "sha256~Wh-Ck06Lva1Cnk-kTGLgHneoRidmKpKMcv6Qh_t-SvA"
   }
 
   stages {
@@ -16,9 +17,7 @@ pipeline {
 
     stage('Login to OpenShift Registry') {
       steps {
-        withCredentials([string(credentialsId: 'openshift-token', variable: 'TOKEN')]) {
-          sh 'echo $TOKEN | docker login -u developer --password-stdin ${REGISTRY}'
-        }
+        sh 'echo $OPENSHIFT_TOKEN | docker login -u developer --password-stdin ${REGISTRY}'
       }
     }
 
