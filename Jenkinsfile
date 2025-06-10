@@ -8,16 +8,9 @@ pipeline {
   }
 
   stages {
-    stage('Check Java & Git') {
+    stage('Check Git') {
       steps {
-        sh 'java -version || true'
         sh 'git --version || true'
-      }
-    }
-
-    stage('Build with Maven Wrapper') {
-      steps {
-        sh './mvnw clean install -DskipTests'
       }
     }
 
@@ -29,9 +22,14 @@ pipeline {
       }
     }
 
-    stage('Docker Build & Push') {
+    stage('Docker Build (with Maven inside)') {
       steps {
         sh 'docker build -t ${REGISTRY}/${PROJECT_NAME}/${IMAGE_NAME}:latest .'
+      }
+    }
+
+    stage('Push to OpenShift Registry') {
+      steps {
         sh 'docker push ${REGISTRY}/${PROJECT_NAME}/${IMAGE_NAME}:latest'
       }
     }
@@ -45,7 +43,7 @@ pipeline {
 
   post {
     success {
-      echo '✅ Pipeline finished successfully.'
+      echo '✅ Pipeline completed successfully!'
     }
     failure {
       echo '❌ Pipeline failed.'
