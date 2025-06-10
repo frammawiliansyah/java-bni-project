@@ -18,11 +18,9 @@ public class FileController {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    // API untuk upload file
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // Pastikan folder ada
             Path uploadPath = Paths.get(uploadDir);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
@@ -54,7 +52,6 @@ public class FileController {
         }
     }
 
-    // API untuk membaca file berdasarkan nama
     @GetMapping("/{filename:.+}")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         try {
